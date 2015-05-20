@@ -389,11 +389,11 @@ uint16_t EtherCard::delaycnt = 0; //request gateway ARP lookup
 
 uint8_t EtherCard::begin (const uint16_t size,
                           const uint8_t* macaddr,
-                          uint8_t csPin) {
+                          uint8_t csPin) {//sizeof Ethernet::buffer[700], mymac, 10
     using_dhcp = false;
-    Stash::initMap(56);
-    copyMac(mymac, macaddr);
-    return initialize(size, mymac, csPin);
+    Stash::initMap(56);//设置0~55bit的 的值 都是1
+    copyMac(mymac, macaddr); //macaddr={0x74,0x69,0x69,0x2D,0x30,0x31}; mymac 是一个uint8_t 6位数组
+    return initialize(size, mymac, csPin);//调用 ENC28J60 的 initialize方法
 }
 
 bool EtherCard::staticSetup (const uint8_t* my_ip,
